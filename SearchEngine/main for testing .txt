@@ -1,0 +1,52 @@
+
+package MoteurDeRecherche;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+public class Main{
+
+	public static void main(String[] args) {
+		LecteurMotParMot1 l= new LecteurMotParMot1(); 
+		Ordonnanceur o = new Ordonnanceur();
+		Analyseur analyseur=new Analyseur5();
+		Map<String, Integer> listDesStat;
+		List<Traiteur> listTraiteur = new ArrayList<>();
+		listTraiteur.add(new Nettoyeur());
+		listTraiteur.add(new SymbolRemover(",?.;:!*+-"));
+		listTraiteur.add(new Minuscule());
+		Index index = new Index2();
+		TriScore tri= new TriScore();
+		List<Analyseur> test = new ArrayList<>();
+		test.add(new Analyseur1());
+		test.add(new Analyseur2());
+		test.add(new Analyseur3());
+		test.add(new Analyseur4());
+		List<String> test5455 = Arrays.asList("italien");
+		System.out.println(AnalyseurUtil.findFastestAnalyseur(test, TestInput.getInputData()));
+		Analyseur analyseur1=new Analyseur1();
+		String sortedWords = "apple apple banana banana banana orange orange pear";
+		String[] wordsArray = sortedWords.split("\\s+"); // Split the string into words
+		List<String> sortedListeMots = Arrays.asList(wordsArray); // Convert the array to a list
+		long startTime3 = System.nanoTime();
+		analyseur1.analyser(sortedListeMots);
+		long endTime3 = System.nanoTime();
+		long elapsedTimeMs3 = (endTime3 - startTime3) / 1_000_000;
+		System.out.println("Elapsed time: " + elapsedTimeMs3 + " milliseconds");
+		String requete = "invasion japan";
+		MoteurDeRecherche moteur = new MoteurDeRecherche(l,listTraiteur,analyseur,o,tri,index);
+		String chemin ="C:\\Users\\HP\\Videos\\Anime\\corpus\\tres_petit_corpus\\17.txt";
+		long startTime = System.nanoTime();
+		moteur.index(chemin);
+		long endTime = System.nanoTime();
+		long elapsedTimeMs = (endTime - startTime)/1_000_000;
+		System.out.println("Elapsed time: " + elapsedTimeMs + " milliseconds");
+		long startTime1 = System.nanoTime();
+		Map<String,Double> result= moteur.rechercher(requete);
+		long endTime1 = System.nanoTime();
+		long elapsedTimeMs1 = (endTime1 - startTime1) / 1_000_000;
+		System.out.println("Elapsed time: " + elapsedTimeMs1 + " milliseconds");
+		System.out.println(result);
+		}
+		
+	}
